@@ -14,6 +14,11 @@ class OrganizationsController < ApplicationController
       OpenDatum.save_data_from_api(organization_open_data_from_api, get_organization_id_in_db)
     end
     @open_data = OpenDatum.where(organization_id: get_organization_id_in_db)
+
+    if @open_data.to_a.empty?
+      flash.now[:notice] = 'Наборы открытых данных для данной организации отсутсвтвуют'
+    end
+
     @organization = Organization.find(get_organization_id_in_db)
   end
 

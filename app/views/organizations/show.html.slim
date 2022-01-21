@@ -9,6 +9,11 @@ h5.container.mt-5
           span.ml-1.p-2
             = @organization.title
 
+  - flash.each do |type, msg|
+    .alert.alert-info.align-middle
+      = msg
+
+
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
     thead
@@ -45,3 +50,4 @@ h5.container.mt-5
                 .p-2
                   span.font-weight-bold
                     = open_data.translate_category
+
