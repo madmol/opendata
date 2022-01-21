@@ -1,4 +1,11 @@
 class OrganizationsController < ApplicationController
+
+  def download_zip
+    puts 'XYZ'
+  end
+
+  helper_method :download_zip
+
   def index
     if Organization.none?
       organizations_data_from_api = Api.new.fetch_organizations_list_from_api

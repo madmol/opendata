@@ -13,7 +13,6 @@ h5.container.mt-5
     .alert.alert-info.align-middle
       = msg
 
-
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
     thead
@@ -51,3 +50,8 @@ h5.container.mt-5
                   span.font-weight-bold
                     = open_data.translate_category
 
+span
+  nav[aria-label="breadcrumb"]
+    ol.breadcrumb
+      li.breadcrumb-item
+        = link_to('Download')
