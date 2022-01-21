@@ -25,8 +25,10 @@ class OpenDatum < ApplicationRecord
           od.open_datum_id = line['identifier']
           od.save
         end
+
+
       end
-      return nil
+      nil
     end
 
     private

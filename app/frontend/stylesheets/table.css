@@ -1,10 +1,9 @@
 body {
-    background-color: #B3E5FC
 }
 
 .card-1 {
     border: none;
-    border-radius: 10px;
+    border-radius: 0px;
     width: 100%;
     background-color: #fff
 }

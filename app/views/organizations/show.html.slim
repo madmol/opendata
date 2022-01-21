@@ -1,21 +1,29 @@
-h1.container.mt-5
-  | Организации, зарегистрированные на портале открытых данных
+h4.container.mt-5
+  table.table.table-borderless.table-responsive.card-1.p-4
+    thead
+      tr.border-bottom
+        th[style="width: 12%"]
+          span.ml-1.p-2
+            = @organization.organization_id
+        th[style="width: 88%"]
+          span.ml-1.p-2
+            = @organization.title
 
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
     thead
       tr.border-bottom
         th
-          span.ml-1
+          span.ml-1.p-2
             | Номер
         th
-          span.ml-1
+          span.ml-1.p-2
             | Идентификатор
         th
-          span.ml-2
+          span.ml-2.p-2
             | Название
         th
-          span.ml-2
+          span.ml-2.p-2
             | Рубрика
 
         - @open_data.each_with_index  do |open_data, index|
@@ -23,25 +31,17 @@ h1.container.mt-5
             tr.border-bottom
               td
                 .p-2
-                  span.d-block.font-weight-bold
+                  span.font-weight-bold
                     = index + 1
-              td
-                .p-2.d-flex.flex-row.align-items-center.mb-2
-                  .d-flex.flex-column.ml-2
-                    span.d-block.font-weight-bold
-                      = open_data['open_datum_id']
               td
                 .p-2
                   span.font-weight-bold
-                    = open_data['title']
+                    = open_data.open_datum_id
+              td
+                .p-2
+                  span.font-weight-bold
+                    = open_data.title
               td
                 .p-2
                   span.font-weight-bold
                     = open_data.translate_category
-              td
-                .p-2.d-flex.flex-column
-                  span
-                    nav[aria-label="breadcrumb"]
-                      ol.breadcrumb
-                        li.breadcrumb-item
-                        //  = #link_to('Получить данные', organization_path(organization))

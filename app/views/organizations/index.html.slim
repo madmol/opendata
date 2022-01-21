@@ -1,18 +1,23 @@
-h1.container.mt-5
-  | Организации, зарегистрированные на портале открытых данных
+h4.container.mt-5
+  table.table.table-borderless.table-responsive.card-1.p-4
+    thead
+      tr.border-bottom
+        th
+          span.ml-1.p-2
+            | Организации, зарегистрированные на портале открытых данных
 
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
     thead
       tr.border-bottom
         th
-          span.ml-1
+          span.ml-1.p-2
             | Номер
         th
-          span.ml-1
+          span.ml-1.p-2
             | ИНН
         th
-          span.ml-2
+          span.ml-2.p-2
             | Название организации
 
         - @organizations.each_with_index  do |organization, index|
@@ -20,21 +25,20 @@ h1.container.mt-5
             tr.border-bottom
               td
                 .p-2
-                  span.d-block.font-weight-bold
+                  span.font-weight-bold
                     = index + 1
-              td
-                .p-2.d-flex.flex-row.align-items-center.mb-2
-                  .d-flex.flex-column.ml-2
-                    span.d-block.font-weight-bold
-                      = organization['organization_id']
               td
                 .p-2
                   span.font-weight-bold
-                    = organization['title']
+                    = organization.organization_id
               td
-                .p-2.d-flex.flex-column
+                .p-2
+                  span.font-weight-bold
+                    = organization.title
+              td
+                .p-2
                   span
                     nav[aria-label="breadcrumb"]
                       ol.breadcrumb
                         li.breadcrumb-item
-                          = link_to('Получить данные', organization_path(organization))
+                          = link_to(link_to_open_data(organization.id), organization_path(organization))

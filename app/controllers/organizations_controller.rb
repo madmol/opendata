@@ -7,6 +7,7 @@ class OrganizationsController < ApplicationController
   def show
     OpenDatum.save_data_from_api(organization_params) unless OpenDatum.find_by(organization_id: organization_params)
     @open_data = OpenDatum.where(organization_id: organization_params)
+    @organization = Organization.find(organization_params)
   end
 
   def destroy

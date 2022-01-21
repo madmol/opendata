@@ -22,7 +22,7 @@ class Organization < ApplicationRecord
           org.save
         end
       end
-      return nil
+      nil
     end
 
     private
