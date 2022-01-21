@@ -9,34 +9,25 @@ class OpenDatum < ApplicationRecord
 
   belongs_to :organization
 
-  validates :open_datum_id, :title, :category, presence: true
+  # some data come via API without category so... we don't check it for presence
+  validates :open_datum_id, :title, presence: true
 
-  class << self
-    def save_data_from_api(organization_id)
-      response = Faraday.get(make_api_link(Organization::URL, organization_id))
-
-      if response.status == 200
-        organization_open_data = JSON.parse(response.body)
-        organization_open_data.map do |line|
-          od = OpenDatum.new
-          od.organization_id = organization_id
-          od.title = line['title']
-          od.category = line['topic']
-          od.open_datum_id = line['identifier']
-          od.save
-        end
-
-
+  def self.save_data_from_api(organization_open_data, organization_id)
+    organization_open_data.map do |line|
+      od = OpenDatum.new
+      od.organization_id = organization_id
+      od.title = line['title']
+      od.category = line['topic']
+      od.open_datum_id = line['identifier']
+      od.save
+      # check Organization title because of many mistakes in API data
+      org = Organization.find(organization_id)
+      unless org.title == line['organization_name']
+        org.title = line['organization_name']
+        org.save
       end
-      nil
     end
-
-    private
-
-    def make_api_link(url, organization_id)
-      organization_tax_reference = Organization.find(organization_id).organization_id
-      "#{url}api/json/organization/#{organization_tax_reference}/dataset/?access_token=#{ENV['API_KEY_OPENDATA_GOV']}"
-    end
+    nil
   end
 
   def translate_category

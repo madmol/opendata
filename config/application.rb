@@ -23,6 +23,7 @@ module Opendata
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.autoload_paths << "#{root}/lib"
 
     Dotenv::Railtie.load
 
