@@ -54,4 +54,5 @@ span
   nav[aria-label="breadcrumb"]
     ol.breadcrumb
       li.breadcrumb-item
-        = link_to('Download')
+        = link_to('Скачать данные', download_path(id: @organization.id) )
+= @json

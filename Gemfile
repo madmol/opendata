@@ -10,6 +10,7 @@ gem 'webpacker', '~> 4.0'
 gem 'jbuilder', '~> 2.7'
 gem 'faraday'
 gem 'slim-rails'
+gem 'rubyzip', require: 'zip'
 
 group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
