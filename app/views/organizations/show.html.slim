@@ -16,12 +16,12 @@ h5.container.mt-5
 .container.mt-5
   .row
     .col[align="right"]
-      = link_to('Скачать данные', download_path(id: @organization.id), class: "btn btn-primary #{@open_data.to_a.empty? ? 'disabled' : ''}", type: 'button')
+      = link_to('Скачать данные', download_path(id: @organization.id), class: "#{set_download_button_class(@organization)}", type: 'button')
     .col[align="left"]
-      = link_to('Удалить организацию', organization_path(id: @organization.id), class: 'btn btn-warning', type: 'button', method: :delete)
+      = link_to('Удалить организацию', @organization, class: 'btn btn-danger', type: 'button', method: :delete, data: {confirm: 'Вы уверены?'})
 
-      = link_to 'Destroy', post_comment_path(@post, comment),
-              -data: {:confirm => 'Are you sure?'}, :method => :delete
+      / = link_to 'Destroy', post_comment_path(@post, comment),
+      /         -data: {:confirm => 'Are you sure?'}, :method => :delete
 
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
@@ -39,29 +39,10 @@ h5.container.mt-5
         th
           span.ml-2.p-2
             | Рубрика
-
-        - @open_data.each_with_index  do |open_data, index|
-          tbody
-            tr.border-bottom
-              td
-                .p-2
-                  span.font-weight-bold
-                    = index + 1
-              td
-                .p-2
-                  span.font-weight-bold
-                    = open_data.open_datum_id
-              td
-                .p-2
-                  span.font-weight-bold
-                    = open_data.title
-              td
-                .p-2
-                  span.font-weight-bold
-                    = open_data.translate_category
+        = render partial: 'open_data/open_datum', collection: @organization.open_data
 
 span
   nav[aria-label="breadcrumb"]
     ol.breadcrumb
       li.breadcrumb-item
-        = link_to('Скачать данные', download_path(id: @organization.id) )
+        = link_to('Скачать данные', download_path(id: @organization.id))
