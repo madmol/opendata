@@ -12,20 +12,23 @@
 
 ActiveRecord::Schema.define(version: 2022_01_20_101441) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "open_data", force: :cascade do |t|
-    t.string "open_datum_id"
-    t.string "title"
-    t.string "category"
+    t.text "open_datum_id"
+    t.text "title"
+    t.text "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "organization_id", null: false
+    t.bigint "organization_id", null: false
     t.index ["organization_id"], name: "index_open_data_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "title"
-    t.string "organization_id"
-    t.string "hidden"
+    t.text "title"
+    t.text "organization_id"
+    t.text "hidden"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

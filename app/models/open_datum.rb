@@ -12,25 +12,7 @@ class OpenDatum < ApplicationRecord
   # some data come via API without category so... we don't check it for presence
   validates :open_datum_id, :title, presence: true
 
-  def self.save_data_from_api(organization_open_data, organization_id)
-    organization_open_data.map do |line|
-      od = OpenDatum.new
-      od.organization_id = organization_id
-      od.title = line['title']
-      od.category = line['topic']
-      od.open_datum_id = line['identifier']
-      od.save
-      # check Organization title because of many mistakes in API data
-      org = Organization.find(organization_id)
-      unless org.title == line['organization_name']
-        org.title = line['organization_name']
-        org.save
-      end
-    end
-    nil
-  end
-
-  def self.create_json_structure(organization_id)
+  def self.create_open_data_json_structure(organization_id)
     OpenDatum.where(organization_id: organization_id)
         .select('open_datum_id AS identifier', :title, :category).to_a.map do |record|
       # add organization info to json file and delete :id

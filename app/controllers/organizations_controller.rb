@@ -20,39 +20,49 @@ class OrganizationsController < ApplicationController
 
   def index
     if Organization.none?
-      organizations_data_from_api = Api.new.fetch_organizations_list_from_api
-      Organization.save_data_from_api(organizations_data_from_api)
+      api_data = Api.call
+      Organization.upsert_all(api_data.get_organization_data) if api_data.get_organization_data.any?
+      if api_data.status_code != 200
+        flash.now[:alert] = 'Не удалось получить данные по API'
+      end
     end
+
     @organizations = Organization.all
   end
 
   def show
-    unless OpenDatum.find_by(organization_id: get_organization_id_in_db)
-      organization_tax_reference_number = Organization.find(get_organization_id_in_db).organization_id
-      organization_open_data_from_api = Api.new.fetch_organization_open_data_from_api(organization_tax_reference_number)
-      OpenDatum.save_data_from_api(organization_open_data_from_api, get_organization_id_in_db)
+    org_id = get_organization_id_in_db
+    unless OpenDatum.find_by(organization_id: org_id)
+      organization_tax_reference_number = Organization.find(org_id).organization_id
+      api_open_data = Api.call(organization_tax_reference_number)
+      OpenDatum.upsert_all(api_open_data.get_open_data(org_id)) if api_open_data.get_open_data(org_id).any?
+      #OpenDatum.save_data_from_api(api_organization_open_data.json, get_organization_id_in_db)
+
+      if api_open_data.status_code != 200
+        flash.now[:alert] = 'Не удалось получить данные по API'
+      end
     end
-    @open_data = OpenDatum.where(organization_id: get_organization_id_in_db)
+    @open_data = OpenDatum.where(organization_id: org_id)
 
     if @open_data.to_a.empty?
       flash.now[:notice] = 'Наборы открытых данных для данной организации отсутсвтвуют'
     end
-    @json = OpenDatum.where(organization_id: get_organization_id_in_db)
-              .select('open_datum_id AS identifier', :title, :category).to_json(:except => :id)
 
-
-    @organization = Organization.find(get_organization_id_in_db)
+    @organization = Organization.find(org_id)
   end
 
   def destroy
   end
 
+  private
+
   def get_organization_id_in_db
     params.permit(:id)[:id]
   end
 
+=begin
   def make_json_file
-    json = OpenDatum.create_json_structure(get_organization_id_in_db)
+    json = OpenDatum.create_open_data_json_structure(get_organization_id_in_db)
 
     json_file = File.new("tmp/#{file_name}.json", 'w')
     json_file << json
@@ -64,4 +74,5 @@ class OrganizationsController < ApplicationController
     org_reference_tax = Organization.find(get_organization_id_in_db).organization_id
     "#{date}-#{org_reference_tax}"
   end
+=end
 end

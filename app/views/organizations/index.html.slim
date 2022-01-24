@@ -6,6 +6,10 @@ h4.container.mt-5
           span.ml-1.p-2
             | Организации, зарегистрированные на портале открытых данных
 
+  - flash.each do |type, msg|
+    .alert.alert-danger.align-middle
+      = msg
+
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
     thead

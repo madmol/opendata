@@ -1,9 +1,9 @@
 class CreateOrganizations < ActiveRecord::Migration[6.0]
   def change
     create_table :organizations do |t|
-      t.string :title
-      t.string :organization_id
-      t.string :hidden
+      t.text :title
+      t.text :organization_id
+      t.text :hidden
 
       t.timestamps
     end
