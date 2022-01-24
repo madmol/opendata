@@ -1,7 +1,12 @@
 class OrganizationsController < ApplicationController
 
   def download
-    make_json_file
+    organization = Organization.find(get_organization_id_in_db)
+
+    json = ActiveModelSerializers::SerializableResource.new(organization, {serializer: OrganizationSerializer}).to_json
+
+    make_json_file(json)
+
     file_path = "tmp/#{file_name}.json"
 
     zip_stream = Zip::OutputStream.write_buffer do |zip|
@@ -60,10 +65,8 @@ class OrganizationsController < ApplicationController
     params.permit(:id)[:id]
   end
 
-=begin
-  def make_json_file
-    json = OpenDatum.create_open_data_json_structure(get_organization_id_in_db)
 
+  def make_json_file(json)
     json_file = File.new("tmp/#{file_name}.json", 'w')
     json_file << json
     json_file.close
@@ -74,5 +77,4 @@ class OrganizationsController < ApplicationController
     org_reference_tax = Organization.find(get_organization_id_in_db).organization_id
     "#{date}-#{org_reference_tax}"
   end
-=end
 end

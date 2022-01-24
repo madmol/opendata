@@ -35,11 +35,10 @@ class Api
   end
 
   def get_organization_data
-    @json.select{ |org| org['id'].length == 10 && /\d/ =~ org['id'] }.map do |organization|
+    @json.uniq{ |org| org['id'] }.select{ |org| org['id'].length == 10 && /\d/ =~ org['id'] }.map do |organization|
       {
         title: organization['title'],
         organization_id: organization['id'],
-        hidden: 'no',
         created_at: Time.zone.now,
         updated_at: Time.zone.now
       }

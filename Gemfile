@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'faraday'
 gem 'slim-rails'
 gem 'rubyzip', require: 'zip'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
