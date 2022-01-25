@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2022_01_24_103445) do
   enable_extension "plpgsql"
 
   create_table "open_data", force: :cascade do |t|
-    t.text "open_datum_id"
-    t.text "title"
-    t.text "category"
+    t.string "open_datum_id"
+    t.string "title"
+    t.string "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "organization_id", null: false
@@ -26,10 +26,11 @@ ActiveRecord::Schema.define(version: 2022_01_24_103445) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.text "title"
-    t.text "organization_id"
+    t.string "title"
+    t.string "organization_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title", "organization_id"], name: "index_organizations_on_title_and_organization_id", unique: true
   end
 
   add_foreign_key "open_data", "organizations"

@@ -3,7 +3,7 @@ tbody
     td
       .p-2
         span.font-weight-bold
-          = organization_counter + 1
+          = count_record_index + organization_counter + 1
     td
       .p-2
         span.font-weight-bold
@@ -18,4 +18,4 @@ tbody
           nav[aria-label="breadcrumb"]
             ol.breadcrumb
               li.breadcrumb-item
-                = link_to(link_to_open_data(organization), organization_path(organization))
+                = link_to(link_to_open_data(organization), organization_path(organization, page: params[:page]))

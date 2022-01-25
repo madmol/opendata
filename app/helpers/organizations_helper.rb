@@ -1,7 +1,6 @@
 module OrganizationsHelper
   def link_to_open_data(organization)
     if organization.open_data.to_a.any?
-      #if OpenDatum.find_by(organization_id: id)
       'Просмотреть данные'
     else
       'Получить данные'

@@ -26,13 +26,16 @@ class OrganizationsController < ApplicationController
   def index
     if Organization.none? || reload?
       api_data = Api.call
-      Organization.upsert_all(api_data.get_organization_data) if api_data.get_organization_data.any?
+      if api_data.get_organization_data.any?
+        Organization.upsert_all(api_data.get_organization_data, unique_by: :index_organizations_on_title_and_organization_id)
+      end
       unless api_data.status_code == 200
         flash.now[:alert] = 'Не удалось получить данные по API'
       end
     end
 
-    @organizations = Organization.all
+    # @organizations = Organization.order(title: :asc).all
+    @organizations = Organization.order(title: :asc).page(params[:page])
   end
 
   def show
@@ -63,7 +66,7 @@ class OrganizationsController < ApplicationController
 
   def destroy
     @organization.destroy
-    redirect_to organizations_path, notice: 'Запись удалена'
+    redirect_to organizations_path(page: params[:page]), notice: 'Запись удалена'
   end
 
   private

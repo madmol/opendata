@@ -27,3 +27,4 @@ h4.container.mt-5
           span.ml-2.p-2
             | Название организации
         = render partial: 'organizations/organization', collection: @organizations
+  = paginate @organizations
