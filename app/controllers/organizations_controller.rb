@@ -55,28 +55,22 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    deleted_org = @organization.destroy
-
-    org_list = Organization.order(title: :asc).pluck(:title).to_a << deleted_org.title
-
-    index = org_list.index(deleted_org.title) + 1
-
-    total_pages = Organization.order(title: :asc).page.total_pages
-    step = Organization.default_per_page
-
-    page_int = index / step + 1
-
-    page = if page_int < total_pages
-             page_int
-           else
-             total_pages
-           end
-    # page < total_pages ? page : total_pages
-
+    page = get_page_number
+    @organization.destroy
     redirect_to organizations_path(page: page), notice: 'Запись удалена'
   end
 
   private
+  # get current page from pagination
+  def get_page_number
+    index = Organization.order(title: :asc).pluck(:title).to_a.index(@organization.title)
+
+    total_pages = Organization.order(title: :asc).page.total_pages
+    item_per_page = Organization.default_per_page
+    page_num = index / item_per_page + 1
+
+    page_num < total_pages ? page_num : total_pages
+  end
 
   def get_organization_id_in_db
     @organization = Organization.find(params.permit(:id)[:id])
