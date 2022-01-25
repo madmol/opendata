@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   root to: 'organizations#index'
 
-  resources :organizations, only: %i[show index destroy]
+  concern :paginatable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
+
+  resources :organizations, only: %i[show index destroy], concerns: :paginatable
 
   get 'download' => 'organizations#download'
-  get 'reload' => 'organizations#reload'
+  post 'reload' => 'organizations#reload'
 end

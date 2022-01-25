@@ -18,7 +18,7 @@ h5.container.mt-5
     .col[align="right"]
       = link_to("Экспортировать данные", download_path(id: @organization.id), class: "#{set_download_button_class(@organization)}", type: 'button')
     .col[align="left"]
-      = link_to('Удалить организацию', organization_path(@organization, page: params[:page]), class: 'btn btn-danger', type: 'button', method: :delete, data: {confirm: 'Вы уверены?'})
+      = link_to('Удалить организацию', organization_path(@organization), class: 'btn btn-danger', type: 'button', method: :delete, data: {confirm: 'Вы уверены?'})
 
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4

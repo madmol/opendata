@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
   end
 
   def index
-    if Organization.none? || reload?
+    if Organization.none?
       api_data = Api.call
       if api_data.get_organization_data.any?
         Organization.upsert_all(api_data.get_organization_data, unique_by: :index_organizations_on_title_and_organization_id)
@@ -34,28 +34,18 @@ class OrganizationsController < ApplicationController
       end
     end
 
-    # @organizations = Organization.order(title: :asc).all
     @organizations = Organization.order(title: :asc).page(params[:page])
   end
 
   def show
-    #unless OpenDatum.find_by(organization_id: @organization_id)
     if @organization.open_data.to_a.empty?
-      #organization_tax_reference_number = Organization.find(@organization_id).organization_id
-      #organization_tax_reference_number = @organization.organization_id
-      #api_open_data = Api.call(organization_tax_reference_number)
       api_open_data = Api.call(@organization.organization_id)
       OpenDatum.upsert_all(api_open_data.get_open_data(@organization.id)) if api_open_data.get_open_data(@organization.id).any?
-      # OpenDatum.save_data_from_api(api_organization_open_data.json, get_organization_id_in_db)
-
-      #if OpenDatum.where(organization_id: @organization_id).to_a.empty?
-
 
       unless api_open_data.status_code == 200
         flash.now[:alert] = 'Не удалось получить данные по API'
       end
     end
-    # @open_data = @organization.open_data
 
     @organization.reload
 
@@ -65,17 +55,30 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    @organization.destroy
-    redirect_to organizations_path(page: params[:page]), notice: 'Запись удалена'
+    deleted_org = @organization.destroy
+
+    org_list = Organization.order(title: :asc).pluck(:title).to_a << deleted_org.title
+
+    index = org_list.index(deleted_org.title) + 1
+
+    total_pages = Organization.order(title: :asc).page.total_pages
+    step = Organization.default_per_page
+
+    page_int = index / step + 1
+
+    page = if page_int < total_pages
+             page_int
+           else
+             total_pages
+           end
+    # page < total_pages ? page : total_pages
+
+    redirect_to organizations_path(page: page), notice: 'Запись удалена'
   end
 
   private
 
   def get_organization_id_in_db
     @organization = Organization.find(params.permit(:id)[:id])
-  end
-
-  def reload?
-    params.permit(:reload)[:reload]
   end
 end
