@@ -5,6 +5,9 @@ h4.container.mt-5
         th
           span.ml-1.p-2
             | Организации, зарегистрированные на портале открытых данных
+        th
+          span.ml-1.p-2
+            = link_to('Обновить данные', organizations_path(reload: true), class: 'btn btn-info', type: 'button', data: {confirm: 'Вы уверены?'})
 
   - flash.each do |type, msg|
     .alert.alert-danger.align-middle

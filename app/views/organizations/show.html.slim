@@ -16,12 +16,9 @@ h5.container.mt-5
 .container.mt-5
   .row
     .col[align="right"]
-      = link_to('Скачать данные', download_path(id: @organization.id), class: "#{set_download_button_class(@organization)}", type: 'button')
+      = link_to("Экспортировать данные", download_path(id: @organization.id), class: "#{set_download_button_class(@organization)}", type: 'button')
     .col[align="left"]
       = link_to('Удалить организацию', @organization, class: 'btn btn-danger', type: 'button', method: :delete, data: {confirm: 'Вы уверены?'})
-
-      / = link_to 'Destroy', post_comment_path(@post, comment),
-      /         -data: {:confirm => 'Are you sure?'}, :method => :delete
 
 .container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
@@ -40,9 +37,3 @@ h5.container.mt-5
           span.ml-2.p-2
             | Рубрика
         = render partial: 'open_data/open_datum', collection: @organization.open_data
-
-span
-  nav[aria-label="breadcrumb"]
-    ol.breadcrumb
-      li.breadcrumb-item
-        = link_to('Скачать данные', download_path(id: @organization.id))

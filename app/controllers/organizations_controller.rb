@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
   end
 
   def index
-    if Organization.none?
+    if Organization.none? || reload?
       api_data = Api.call
       Organization.upsert_all(api_data.get_organization_data) if api_data.get_organization_data.any?
       unless api_data.status_code == 200
@@ -70,5 +70,9 @@ class OrganizationsController < ApplicationController
 
   def get_organization_id_in_db
     @organization = Organization.find(params.permit(:id)[:id])
+  end
+
+  def reload?
+    params.permit(:reload)[:reload]
   end
 end

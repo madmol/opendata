@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   resources :organizations, only: %i[show index destroy]
 
   get 'download' => 'organizations#download'
-
+  get 'reload' => 'organizations#reload'
 end
