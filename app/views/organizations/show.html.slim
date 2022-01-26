@@ -9,8 +9,9 @@ h5.container.mt-5
           span.ml-1.p-2
             = @organization.title
 
+h5.container
   - flash.each do |type, msg|
-    .alert.alert-danger.align-middle
+    div class="alert alert-#{choose_flash_type(type)} text-center"
       = msg
 
 .container.mt-5

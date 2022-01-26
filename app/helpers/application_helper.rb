@@ -6,4 +6,12 @@ module ApplicationHelper
       0
     end
   end
+
+  def choose_flash_type(type)
+    if type == 'notice'
+      'info'
+    elsif type == 'alert'
+      'danger'
+    end
+  end
 end

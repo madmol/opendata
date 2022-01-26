@@ -1,13 +1,13 @@
 class ZipStreamer
-  def self.call(file_path)
-    new(file_path)
+  def self.call(params)
+    new(params)
   end
 
-  def initialize(file_path)
-    @file_path = file_path
+  def initialize(params)
+    @file_path = params[:file_path]
   end
 
-  def create_zip_stream
+  def create
     zip_stream = Zip::OutputStream.write_buffer do |zip|
       zip.put_next_entry(File.basename(@file_path))
       zip.write(File.open(@file_path, 'r').read)

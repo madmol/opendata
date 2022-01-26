@@ -7,10 +7,11 @@ h4.container.mt-5
             | Организации, зарегистрированные на портале открытых данных
         th.float-end
           span.ml-1.p-2
-            = button_to('Обновить данные', reload_path(reload: true), method: :index, class: 'btn btn-info', type: 'button', data: {confirm: 'Вы уверены?'})
+            = link_to('Обновить данные', reload_path, class: 'btn btn-info', type: 'button', data: {confirm: 'Вы уверены?'})
 
+h5.container
   - flash.each do |type, msg|
-    .alert.alert-danger.align-middle
+    div class="alert alert-#{choose_flash_type(type)} text-center"
       = msg
 
 .container.mt-5

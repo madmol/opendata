@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :organizations, only: %i[show destroy], concerns: :paginatable
 
   get 'download' => 'organizations#download'
-  post 'reload' => 'organizations#reload'
+  get 'reload' => 'organizations#reload'
 end

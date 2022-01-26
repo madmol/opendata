@@ -1,10 +1,10 @@
 class OpenDatum < ApplicationRecord
   CATEGORIES_TRANSLATION = {
-      'Tourism' => 'Туризм',  'Weather' => 'Метеоданные', 'Entertainment' => 'Досуг и отдых',
-      'Electronics' => 'Электроника',  'Culture' => 'Культура', 'Ecology' => 'Экология',  'Sport' => 'Спорт',
-      'Trade' => 'Торговля',  'Construction' => 'Строительство',  'Cartography' => 'Картография',
-      'Government' => 'Государство',  'Health' => 'Здоровье', 'Transport' => 'Траснпорт',
-      'Security' => 'Безопасность', 'Education' => 'Образование', 'Economics' => 'Экономика'
+    'Tourism' => 'Туризм',  'Weather' => 'Метеоданные', 'Entertainment' => 'Досуг и отдых',
+    'Electronics' => 'Электроника',  'Culture' => 'Культура', 'Ecology' => 'Экология',  'Sport' => 'Спорт',
+    'Trade' => 'Торговля',  'Construction' => 'Строительство',  'Cartography' => 'Картография',
+    'Government' => 'Государство',  'Health' => 'Здоровье', 'Transport' => 'Траснпорт',
+    'Security' => 'Безопасность', 'Education' => 'Образование', 'Economics' => 'Экономика'
   }
 
   belongs_to :organization
