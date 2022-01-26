@@ -24,7 +24,7 @@ class OrganizationsController < ApplicationController
   end
 
   def index
-    if Organization.none?
+    if Organization.none? || reload?
       api_data = Api.call
       if api_data.get_organization_data.any?
         Organization.upsert_all(api_data.get_organization_data, unique_by: :index_organizations_on_title_and_organization_id)
@@ -61,6 +61,10 @@ class OrganizationsController < ApplicationController
   end
 
   private
+
+  def reload?
+    false
+  end
   # get current page from pagination
   def get_page_number
     index = Organization.order(title: :asc).pluck(:title).to_a.index(@organization.title)
