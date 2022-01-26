@@ -9,7 +9,6 @@ class OpenDatum < ApplicationRecord
 
   belongs_to :organization
 
-  # some data come via API without category so... we don't check it for presence
   validates :open_datum_id, :title, presence: true
 
   def self.call_api(organization_tax_reference, organization_id)
@@ -21,6 +20,6 @@ class OpenDatum < ApplicationRecord
   end
 
   def translate_category
-    CATEGORIES_TRANSLATION[self.category]
+    CATEGORIES_TRANSLATION[category]
   end
 end

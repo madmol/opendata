@@ -17,7 +17,7 @@ h5.container
 .container.mt-5
   .row
     .col[align="right"]
-      = link_to("Экспортировать данные", download_path(id: @organization.id), class: "#{set_download_button_class(@organization)}", type: 'button')
+      = link_to("Экспортировать данные", download_path(id: @organization.id), class: "#{select_download_button_class(@organization)}", type: 'button')
     .col[align="left"]
       = link_to('Удалить организацию', organization_path(@organization), class: 'btn btn-danger', type: 'button', method: :delete, data: {confirm: 'Вы уверены?'})
 

@@ -1,5 +1,5 @@
 class OrganizationsController < ApplicationController
-  before_action :get_organization_id_in_db, only: %i[download show destroy]
+  before_action :select_organization, only: %i[download show destroy]
 
   def download
     # checking that the user cannot download via URL
@@ -49,7 +49,7 @@ class OrganizationsController < ApplicationController
   end
 
   def destroy
-    page = get_page_number
+    page = select_page_number
     @organization.destroy
     redirect_to organizations_path(page: page), alert: 'Запись удалена'
   end
@@ -64,7 +64,7 @@ class OrganizationsController < ApplicationController
 
   private
   # get current page from pagination
-  def get_page_number
+  def select_page_number
     index = Organization.order(title: :asc).pluck(:title).to_a.index(@organization.title)
 
     total_pages = Organization.order(title: :asc).page.total_pages
@@ -74,7 +74,7 @@ class OrganizationsController < ApplicationController
     page_num < total_pages ? page_num : total_pages
   end
 
-  def get_organization_id_in_db
+  def select_organization
     @organization = Organization.find(params.permit(:id)[:id])
   end
 end

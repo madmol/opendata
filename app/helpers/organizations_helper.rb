@@ -7,11 +7,11 @@ module OrganizationsHelper
     end
   end
 
-  def set_download_button_class(organization)
+  def select_download_button_class(organization)
     if organization.open_data.to_a.any?
-      "btn btn-primary"
+      'btn btn-primary'
     else
-      "btn btn-secondary disabled"
+      'btn btn-secondary disabled'
     end
   end
 end

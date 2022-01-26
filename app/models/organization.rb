@@ -1,6 +1,4 @@
 class Organization < ApplicationRecord
-  URL = 'https://data.gov.ru/'
-
   has_many :open_data, dependent: :destroy
 
   validates :organization_id, :title, presence: true
