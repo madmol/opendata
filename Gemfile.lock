@@ -85,6 +85,7 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    execjs (2.7.0)
     faraday (2.1.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
@@ -194,6 +195,8 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -231,6 +234,7 @@ DEPENDENCIES
   rubyzip
   selenium-webdriver
   slim-rails
+  uglifier
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)

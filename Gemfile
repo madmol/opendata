@@ -13,6 +13,7 @@ gem 'slim-rails'
 gem 'rubyzip', require: 'zip'
 gem 'active_model_serializers'
 gem 'kaminari'
+gem 'uglifier'
 
 group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
