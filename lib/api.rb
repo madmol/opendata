@@ -1,5 +1,5 @@
 class Api
-  attr_reader :status_code
+  attr_reader :status_code, :json
 
   URL = 'https://data.gov.ru/'
 
@@ -12,7 +12,7 @@ class Api
         status_code = response.status
       else
         status_code = response.status
-        json = ''
+        json = []
       end
 
       new(status: status_code, json: json)

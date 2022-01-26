@@ -12,16 +12,12 @@ class OpenDatum < ApplicationRecord
   # some data come via API without category so... we don't check it for presence
   validates :open_datum_id, :title, presence: true
 
-  def self.create_open_data_json_structure(organization_id)
-    OpenDatum.where(organization_id: organization_id)
-        .select('open_datum_id AS identifier', :title, :category).to_a.map do |record|
-      # add organization info to json file and delete :id
-      organization_data_hash = {
-          :organization_tax_reference => Organization.find(organization_id).organization_id,
-          :organization_title => Organization.find(organization_id).title
-      }
-      record.serializable_hash.merge!(organization_data_hash).except('id')
-    end.to_json
+  def self.call_api(organization_tax_reference, organization_id)
+    api_open_data = Api.call(organization_tax_reference)
+    if api_open_data.json.any?
+      OpenDatum.upsert_all(api_open_data.get_open_data(organization_id))
+    end
+    api_open_data.status_code
   end
 
   def translate_category

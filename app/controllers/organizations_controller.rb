@@ -24,12 +24,9 @@ class OrganizationsController < ApplicationController
   end
 
   def index
-    if Organization.none? || reload?
-      api_data = Api.call
-      if api_data.get_organization_data.any?
-        Organization.upsert_all(api_data.get_organization_data, unique_by: :index_organizations_on_title_and_organization_id)
-      end
-      unless api_data.status_code == 200
+    if Organization.none?
+      api_status = Organization.call_api
+      unless api_status == 200
         flash.now[:alert] = 'Не удалось получить данные по API'
       end
     end
@@ -39,10 +36,8 @@ class OrganizationsController < ApplicationController
 
   def show
     if @organization.open_data.to_a.empty?
-      api_open_data = Api.call(@organization.organization_id)
-      OpenDatum.upsert_all(api_open_data.get_open_data(@organization.id)) if api_open_data.get_open_data(@organization.id).any?
-
-      unless api_open_data.status_code == 200
+      api_status = OpenDatum.call_api(@organization.organization_id, @organization.id)
+      unless api_status == 200
         flash.now[:alert] = 'Не удалось получить данные по API'
       end
     end
@@ -60,11 +55,12 @@ class OrganizationsController < ApplicationController
     redirect_to organizations_path(page: page), notice: 'Запись удалена'
   end
 
-  private
-
-  def reload?
-    false
+  def reload
+    params.permit(:reload)[:reload]
+    redirect_to organizations_path, notice: 'Данные об организациях обновлены'
   end
+
+  private
   # get current page from pagination
   def get_page_number
     index = Organization.order(title: :asc).pluck(:title).to_a.index(@organization.title)
