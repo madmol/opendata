@@ -25,7 +25,7 @@ module Opendata
     config.load_defaults 6.0
     config.autoload_paths << "#{root}/lib"
 
-    Dotenv::Railtie.load
+    # Dotenv::Railtie.load
 
     config.generators do |g|
       g.template_engine :slim
