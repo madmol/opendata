@@ -9,14 +9,12 @@ class OpenDatum < ApplicationRecord
 
   belongs_to :organization
 
-  validates :open_datum_id, :title, presence: true
+  # validates :open_datum_id, :title, presence: true
 
-  def self.call_api(organization_tax_reference, organization_id)
-    api_open_data = Api.call(organization_tax_reference)
-    if api_open_data.json.any?
-      OpenDatum.upsert_all(api_open_data.get_open_data(organization_id))
+  def self.save_api_data(data)
+    if data.any?
+      OpenDatum.upsert_all(data)
     end
-    api_open_data.status_code
   end
 
   def translate_category

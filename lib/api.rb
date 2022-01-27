@@ -1,5 +1,5 @@
 class Api
-  attr_reader :status_code, :json
+  attr_reader :status_code
 
   URL = 'https://data.gov.ru/'
 
@@ -34,7 +34,7 @@ class Api
     @json = params[:json]
   end
 
-  def get_organization_data
+  def convert_organization_data
     @json.uniq{ |org| org['id'] }.select{ |org| org['id'].length == 10 && /\d/ =~ org['id'] }.map do |organization|
       {
         title: organization['title'],
@@ -45,7 +45,7 @@ class Api
     end
   end
 
-  def get_open_data(org_id)
+  def convert_open_data(org_id)
     @json.select{ |od| od['title'].present? }.map do |open_data|
       {
         organization_id: org_id,

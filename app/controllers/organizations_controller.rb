@@ -24,8 +24,11 @@ class OrganizationsController < ApplicationController
 
   def index
     if Organization.none?
-      api_status = Organization.call_api
-      unless api_status == 200
+      data_from_api = Api.call
+
+      Organization.save_api_data(data_from_api.convert_organization_data)
+
+      unless data_from_api.status_code == 200
         flash.now[:alert] = 'Не удалось получить данные по API'
       end
     end
@@ -35,8 +38,11 @@ class OrganizationsController < ApplicationController
 
   def show
     if @organization.open_data.to_a.empty?
-      api_status = OpenDatum.call_api(@organization.organization_id, @organization.id)
-      unless api_status == 200
+      data_from_api = Api.call(@organization.organization_id)
+
+      OpenDatum.save_api_data(data_from_api.convert_open_data(@organization.id))
+
+      unless data_from_api.status_code == 200
         flash.now[:alert] = 'Не удалось получить данные по API'
       end
     end
@@ -55,8 +61,10 @@ class OrganizationsController < ApplicationController
   end
 
   def reload
-    api_status = Organization.call_api
-    unless api_status == 200
+    data_from_api = Api.call
+
+    Organization.save_api_data(data_from_api.convert_organization_data)
+    unless data_from_api.status_code == 200
       flash.now[:alert] = 'Не удалось получить данные по API'
     end
     redirect_to organizations_path, notice: 'Данные об организациях обновлены'
