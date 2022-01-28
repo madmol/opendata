@@ -31,4 +31,5 @@ group :test do
   gem 'webdrivers'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'database_cleaner'
 end

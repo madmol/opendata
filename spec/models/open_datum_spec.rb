@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OpenDatum, type: :model do
   before(:each) do
-    Organization.insert(
+    Organization.create(
       id: 1, title: '1 organization', organization_id: '1234567890',
       created_at: Time.zone.now, updated_at: Time.zone.now
     )
