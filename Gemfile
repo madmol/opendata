@@ -18,6 +18,7 @@ gem 'uglifier'
 group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 5.0.0'
 end
 
 group :development do
@@ -29,7 +30,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'factory_bot_rails'
-  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-    gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'main'
-  end
+  gem 'faker'
 end

@@ -13,7 +13,7 @@ class OpenDatum < ApplicationRecord
 
   def self.save_api_data(data)
     if data.any?
-      OpenDatum.upsert_all(data)
+      OpenDatum.upsert_all(data, unique_by: :index_open_data_on_open_datum_id)
     end
   end
 

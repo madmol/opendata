@@ -4,6 +4,7 @@ class CreateOpenData < ActiveRecord::Migration[6.0]
       t.string :open_datum_id
       t.string :title
       t.string :category
+      t.index [:open_datum_id], unique: true
 
       t.timestamps
     end

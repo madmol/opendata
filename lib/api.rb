@@ -35,7 +35,8 @@ class Api
   end
 
   def convert_organization_data
-    @json.uniq{ |org| org['id'] }.select{ |org| org['id'].length == 10 && /\d/ =~ org['id'] }.map do |organization|
+    data = @json.uniq { |org| org['id'] }.select { |org| org['id'].length == 10 && /\d/ =~ org['id'] }
+    data.map do |organization|
       {
         title: organization['title'],
         organization_id: organization['id'],
@@ -46,7 +47,8 @@ class Api
   end
 
   def convert_open_data(org_id)
-    @json.select{ |od| od['title'].present? }.map do |open_data|
+    data = @json.uniq { |od| od['identifier'] }.select { |od| od['title'].present? }
+    data.map do |open_data|
       {
         organization_id: org_id,
         title: open_data['title'],

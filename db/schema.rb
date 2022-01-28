@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_01_24_103445) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "organization_id", null: false
+    t.index ["open_datum_id"], name: "index_open_data_on_open_datum_id", unique: true
     t.index ["organization_id"], name: "index_open_data_on_organization_id"
   end
 
