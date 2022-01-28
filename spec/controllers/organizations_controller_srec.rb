@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "get all organization route", :type => :request do
-  let!(:organizations) { FactoryBot.create_list(:random_organization, 45) }
+  let!(:organizations) { FactoryBot.create_list(:organization, 45) }
 
   # before {get '/organizations/'}
 

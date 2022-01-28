@@ -1,21 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe "GetOrganizations", type: :request do
-
-  describe "get all organization route", :type => :request do
-    let!(:organizations) { FactoryBot.create_list(:random_organization, 45) }
-
-    it "renders a successful response" do
+RSpec.describe "Get Organizations" do
+  # let!(:organizations) { FactoryBot.create_list(:random_organization, 45) }
+  context 'main page' do
+    it "renders a successful response for /organizations" do
       get organizations_path
       expect(response).to be_successful
     end
 
-    it 'returns all organizations' do
-      get organizations_path
-      # FactoryBot.create_list(:random_organization, 45)
-      puts (response.body)
-
-      expect(response.body.size).to eq(45)
+    it "renders a successful response for root_path" do
+      get root_path
+      expect(response).to be_successful
     end
   end
 end
