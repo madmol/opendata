@@ -14,8 +14,8 @@ RSpec.describe 'Save json to tmp folder' do
   }
   let(:file) { JsonSaver.call(json: json.to_json, org_reference_tax: json['organization_tax_reference_number']) }
 
-  it "initialize json" do
-    expect(file.file_name).to eq "#{Date.today.strftime("%Y-%m-%d")}-#{json['organization_tax_reference_number']}"
+  it 'initialize json' do
+    expect(file.file_name).to eq "#{Date.today.strftime('%Y-%m-%d')}-#{json['organization_tax_reference_number']}"
   end
 
   it 'save json file in tmp folder' do

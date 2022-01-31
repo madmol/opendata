@@ -1,5 +1,6 @@
 module OrganizationsHelper
   def link_to_open_data(organization)
+    # check if there is any open_data for organization
     if organization.open_data.to_a.any?
       'Просмотреть данные'
     else

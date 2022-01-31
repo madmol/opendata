@@ -16,7 +16,7 @@ RSpec.describe 'Stream zip' do
   let(:zip_stream) { ZipStreamer.call(file_path: "tmp/#{file.file_name}.json") }
 
 
-  it "create zip stream" do
+  it 'create zip stream' do
     file.save
     expect(zip_stream.create.class).to eq StringIO
     expect(zip_stream.create.closed?).to be false

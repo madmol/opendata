@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe OpenDatum, type: :model do
+RSpec.describe 'OpenDatum' do
   before(:each) do
     Organization.create(
       id: 1, title: '1 organization', organization_id: '1234567890',

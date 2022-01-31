@@ -7,7 +7,7 @@ RSpec.describe 'API' do
     expect(organizations_list.status_code).to eq 200
   end
 
-  it 'returns correctly data' do
+  it 'returns correct organization data' do
     expect(organizations_list.convert_organization_data).to be_kind_of(Array)
     expect(organizations_list.convert_organization_data.sample).to have_key(:title)
     expect(organizations_list.convert_organization_data.sample).to have_key(:organization_id)
@@ -21,11 +21,11 @@ RSpec.describe 'API' do
     # find reference tax number where open data exist
     let(:open_data_list) { Api.call(8601041920) }
 
-    it 'returns status 200 for open_data list' do
+    it 'returns status 200 for open data list' do
       expect(open_data_list.status_code).to eq 200
     end
 
-    it 'returns correctly open data' do
+    it 'returns correct open data' do
       Organization.insert(organization)
       expect(open_data_list.convert_open_data(Organization.last.id)).to be_kind_of(Array)
       expect(open_data_list.convert_open_data(Organization.last.id).sample).to have_key(:title)

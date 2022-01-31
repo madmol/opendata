@@ -1,14 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'serializers' do
-  let!(:organization) {
-    FactoryBot.create(:organization) do |organization|
-      FactoryBot.create_list(:open_datum, 1, organization: organization)
-    end
-  }
+  let!(:organization) { generate_organization_with_open_data(1) }
   let(:json) { ActiveModelSerializers::SerializableResource.new(organization, { serializer: OrganizationSerializer }).to_json }
 
-  it "serialize json" do
+  it 'serialize json' do
     parsed_json = JSON.parse(json)
     expect(parsed_json['title']).to eq organization.title
     expect(parsed_json['organization_tax_reference_number']).to eq organization.organization_id

@@ -8,7 +8,7 @@ class JsonSaver
   def initialize(params)
     @json = params[:json]
     @org_reference_tax = params[:org_reference_tax]
-    date = Date.today.strftime("%Y-%m-%d")
+    date = Date.today.strftime('%Y-%m-%d')
     @file_name = "#{date}-#{@org_reference_tax}"
   end
 

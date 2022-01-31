@@ -1,11 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Delete Organization' do
-  let!(:organization) {
-      FactoryBot.create(:organization) do |organization|
-        FactoryBot.create_list(:open_datum, 7, organization: organization)
-      end
-  }
+  let!(:organization) { generate_organization_with_open_data(7) }
 
   it 'redirect to index' do
     delete organization_path(organization)
