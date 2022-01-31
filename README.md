@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+It is a simply application fetch open data from https://data.gov.ru via API and stores it in DB
 
-Things you may want to cover:
+From the page of each organization, there is ability to save data in a zip archive, which contains data in json format.
+It is also possible to delete organization data from the same page.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Also on main page possible to reload organizations list via API request
