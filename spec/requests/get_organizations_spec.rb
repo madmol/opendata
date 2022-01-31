@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Get Organizations" do
-  # let!(:organizations) { FactoryBot.create_list(:random_organization, 45) }
   context 'main page' do
     it "renders a successful response for /organizations" do
       get organizations_path

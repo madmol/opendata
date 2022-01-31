@@ -2,10 +2,10 @@ h5.container.mt-5
   table.table.table-borderless.table-responsive.card-1.p-4
     thead
       tr.border-bottom.align-middle
-        th[style="width: 12%"]
+        th[style='width: 12%']
           span.ml-1.p-2
             = @organization.organization_id
-        th[style="width: 88%"]
+        th[style='width: 88%']
           span.ml-1.p-2
             = @organization.title
 
@@ -16,9 +16,9 @@ h5.container
 
 .container.mt-5
   .row
-    .col[align="right"]
-      = link_to("Экспортировать данные", download_path(id: @organization.id), class: "#{select_download_button_class(@organization)}", type: 'button')
-    .col[align="left"]
+    .col[align='right']
+      = link_to('Экспортировать данные', download_path(id: @organization.id), class: "#{select_download_button_class(@organization)}", type: 'button')
+    .col[align='left']
       = link_to('Удалить организацию', organization_path(@organization), class: 'btn btn-danger', type: 'button', method: :delete, data: {confirm: 'Вы уверены?'})
 
 .container.mt-5

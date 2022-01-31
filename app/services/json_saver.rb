@@ -19,6 +19,6 @@ class JsonSaver
   end
 
   def delete
-    File.delete("tmp/#{@file_name}.json")
+    File.delete("tmp/#{@file_name}.json") if File.exist?("tmp/#{@file_name}.json")
   end
 end
